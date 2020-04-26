@@ -1,6 +1,8 @@
 
 <h1>Listing Articles</h1>
-<%= link_to 'New article', new_article_path %>
+<% if current_author.ability.can? :update, @article %>
+  <%= link_to 'New article', new_article_path %>
+<% end %>
 <table>
   <tr>
     <th>Title</th>
