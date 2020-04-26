@@ -1,5 +1,6 @@
 class ArticlesController < ApplicationController
-	load_and_authorize_resource  
+	load_and_authorize_resource 
+	skip_authorize_resource :only => [:index, :show]
 	# http_basic_authenticate_with name: "dhh", password: "secret",
 	# except: [:index, :show]
 	def index
@@ -8,12 +9,10 @@ class ArticlesController < ApplicationController
 
 	def show
 	    @article = Article.find(params[:id])
-	    authorize! :show, @article
 	  end
 
 	def new
 		@article = Article.new
-		authorize! :new, @article
 	end
 
 	def edit
@@ -28,7 +27,6 @@ class ArticlesController < ApplicationController
 		  else
 		    render 'new'
 		  end
-		  authorize! :create, @project
 		# render plain: params[:article].inspect
 	end
 

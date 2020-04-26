@@ -4,11 +4,11 @@ class Ability
   include CanCan::Ability
 
   def initialize(user)
-    can :read, Article, author: current_author.id
-
-    if user.present?  # additional permissions for logged in users (they can read their own posts)
-      can :read, Article, author_id: current_author.id
-
+    user ||= Author.new
+    if user.id.present?
+        can :manage, Article, author_id: user.id
+        can :create, Comment, author_id: user.id
+        can :destroy, Comment, author_id: user.id
     end
     # Define abilities for the passed in user here. For example:
     #
