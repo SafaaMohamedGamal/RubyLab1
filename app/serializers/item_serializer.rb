@@ -1,9 +1,9 @@
 class ItemSerializer < ActiveModel::Serializer
   attributes :item_name, :item_description
   def item_name
-  	:name
+  	object.name
   end
   def item_description
-  	:description
+  	object.description
   end
 end
